@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>MAPA</title>
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+    </head>
+    <body>
+        <style>
+            #mapa_departamentos {
+                fill: #aaa;
+            }
+            
+            #mapa_departamentos path:hover {
+                fill: #181818;
+            }
+
+            #mapa_departamentos path{
+                stroke: white;
+            }
+            
+            #mapa_municipios {
+                fill: green;
+                stroke: white;
+            }
+            
+            #mapa_municipios path:hover{
+                fill: #181818;
+                cursor:pointer;
+            }
+            
+            #mapa-interactivo{
+                position:relative;
+            }
+            
+            #zoom-back{
+                padding:0 3px;
+                height:20px;
+                display:inline-block;
+                font-size: 10px;
+                position:absolute;
+                display:none;
+                cursor:pointer;
+            }
+            
+            .hidden{
+                display:none;
+            }
+           
+
+        </style>
+        <div id="mapa-interactivo"></div>
+        <script type="text/javascript">
+
+            function omitirAcentos(text) {
+                var acentos = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç";
+                var original = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc";
+                for (var i = 0; i < acentos.length; i++) {
+                    text = text.replace(acentos.charAt(i), original.charAt(i));
+                }
+                return text;
+            }
+            
+            function zoomOut(){
+                $( "#mapa_municipios" ).children("path").hide();
+                $("#zoom-back").hide();
+                
+                x = width / 2;
+                    y = height / 2;
+                    k = 1;
+                    centered = null;
+                    
+                g.transition()
+                        .duration(750)
+                        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+                        .style("stroke-width", 2 / k + "px");
+            }
+            
+            var width = 300,
+                    height = 305,
+                    centered;
+
+           var back = d3.select("#mapa-interactivo").append("input")
+                   .attr("id","zoom-back")
+                    .attr("type","button")
+                    .attr("value","Mapa completo")
+                    .on("click", zoomOut);
+            
+            var svg = d3.select("#mapa-interactivo").append("svg")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("style","border:1px solid #ccc;");
+
+            var projection = d3.geo.mercator()
+                    .center([-85.5, 14.444])
+                    .scale(4000);
+
+            var path = d3.geo.path()
+                    .projection(projection);
+
+            var g = svg.append("g");
+
+            d3.json("json/deptos.json", function (error, guate) {
+                if (error)
+                    return console.error(error);
+
+                var deptos = topojson.feature(guate, guate.objects.departamentos).features;
+
+
+
+             g.append("g")
+                        .attr("id", "mapa_departamentos")
+                        .selectAll("path")
+                        .data(deptos)
+                        .enter().append("path")
+                        .attr("d", path)
+                        .attr("alt", function (d) {
+                            return omitirAcentos(d.properties.Departamento.toLowerCase());
+                        })
+                        .attr("id", function (d) {
+                            return omitirAcentos(d.properties.Departamento.replace(/ /g, '').toLowerCase());
+                        })
+                        .on("click", clicked);
+            });
+            
+            d3.json("json/muni.json", function (error, guate) {
+                if (error)
+                    return console.error(error);
+                var muni = topojson.feature(guate, guate.objects.municipios).features;
+             g.append("g")
+                        .attr("id", "mapa_municipios")
+                        .selectAll("path")
+                        .data(muni)
+                        .enter().append("path")
+                        .attr("d", path)
+                        .attr("alt", function (d) {
+                            return omitirAcentos(d.properties.Municipio.toLowerCase());
+                        })
+                        .attr("class", function (d) {
+                            return omitirAcentos(d.properties.Departamento.replace(/ /g, '').toLowerCase())+" hidden";
+                        }).attr("id", function (d) {
+                            var muni = omitirAcentos(d.properties.Municipio.replace(/ /g, '').toLowerCase());
+                            var depto = omitirAcentos(d.properties.Departamento.replace(/ /g, '').toLowerCase());
+                            return depto+"_"+muni;
+                        })
+                        ;
+            });
+
+            function clicked(d) {
+                var select = omitirAcentos(d.properties.Departamento.replace(/ /g, '').toLowerCase());
+                $( "#mapa_municipios" ).children("path").hide();
+                $("#zoom-back, ."+select).show();
+                
+                var x, y, k;
+                if (d && centered !== d) {
+                    var centroid = path.centroid(d);
+                    x = centroid[0];
+                    y = centroid[1];
+                    k = 4;
+                    centered = d;
+                    if (select == "peten") {
+                        k = 1.5;
+                    }
+                    if (select == "izabal") {
+                        k = 2.8;
+                    }
+                    if (select == "huehuetenango") {
+                        k = 3.9;
+                    }
+                    if (select == "altaverapaz" || select == "quiche") {
+                        k = 3;
+                    }
+                    
+                    if(select=="quetzaltenango"){
+                        k = 4.5;
+                    }
+                    
+                    if (select == "zacapa" || select == "chiquimula" || select == "jalapa" || select == "elprogreso" || select == "guatemala") {
+                        k = 5;
+                    }
+                    
+                    if(select=="retalhuleu"){
+                        k=5.5;
+                    }
+                    
+                    if(select=="suchitepequez" || select=="chimaltenango" || select=="chimaltenango" || select=="santarosa"){
+                        k = 6;
+                    }
+                    
+                    if(select=="totonicapan" || select=="solola"){
+                        k = 7;
+                    }
+                    
+                    if(select=="sacatepequez"){
+                        k = 9;
+                    }      
+                }
+                g.transition()
+                        .duration(750)
+                        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+                        .style("stroke-width", 2 / k + "px");
+            }
+
+            
+        </script>
+    </body>
+</html>  
