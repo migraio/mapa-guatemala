@@ -250,7 +250,7 @@ table {
   font-family: "Carrois-Gothic";
   src: url("../fonts/carroisgothic-regular-webfont.eot");
   /* IE9 Compat Modes */
-  //src: url("../fonts/carroisgothic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/carroisgothic-regular-webfont.woff") format("woff"), url("../fonts/carroisgothic-regular-webfont.ttf") format("truetype"), url("../fonts/carroisgothic-regular-webfont.svg#Carrois-Gothic") format("svg");
+  src: url("../fonts/carroisgothic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/carroisgothic-regular-webfont.woff") format("woff"), url("../fonts/carroisgothic-regular-webfont.ttf") format("truetype"), url("../fonts/carroisgothic-regular-webfont.svg#Carrois-Gothic") format("svg");
   /* Legacy iOS */
   font-weight: normal;
   font-style: normal;
@@ -261,7 +261,7 @@ table {
   font-family: "Lora";
   src: url("../fonts/lora-regular-webfont.eot");
   /* IE9 Compat Modes */
-  //src: url("../fonts/lora-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lora-regular-webfont.woff") format("woff"), url("../fonts/lora-regular-webfont.ttf") format("truetype"), url("../fonts/lora-regular-webfont.svg#Lora") format("svg");
+  src: url("../fonts/lora-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lora-regular-webfont.woff") format("woff"), url("../fonts/lora-regular-webfont.ttf") format("truetype"), url("../fonts/lora-regular-webfont.svg#Lora") format("svg");
   /* Legacy iOS */
   font-weight: normal;
   font-style: normal;
@@ -272,7 +272,7 @@ table {
   font-family: "Lora";
   src: url("../fonts/lora-italic-webfont.eot");
   /* IE9 Compat Modes */
-  //src: url("../fonts/lora-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lora-italic-webfont.woff") format("woff"), url("../fonts/lora-italic-webfont.ttf") format("truetype"), url("../fonts/lora-italic-webfont.svg#Lora") format("svg");
+  src: url("../fonts/lora-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lora-italic-webfont.woff") format("woff"), url("../fonts/lora-italic-webfont.ttf") format("truetype"), url("../fonts/lora-italic-webfont.svg#Lora") format("svg");
   /* Legacy iOS */
   font-weight: normal;
   font-style: italic;
@@ -283,7 +283,7 @@ table {
   font-family: "Lora";
   src: url("../fonts/lora-bold-webfont.eot");
   /* IE9 Compat Modes */
-  //src: url("../fonts/lora-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lora-bold-webfont.woff") format("woff"), url("../fonts/lora-bold-webfont.ttf") format("truetype"), url("../fonts/lora-bold-webfont.svg#Lora") format("svg");
+  src: url("../fonts/lora-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lora-bold-webfont.woff") format("woff"), url("../fonts/lora-bold-webfont.ttf") format("truetype"), url("../fonts/lora-bold-webfont.svg#Lora") format("svg");
   /* Legacy iOS */
   font-weight: 700;
   font-style: normal;
