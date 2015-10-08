@@ -1,0 +1,472 @@
+
+.hidden{
+    display:none;
+}
+
+.center{
+    text-align: center;
+}
+
+
+#graficas-elecciones-2dav-content{
+    max-width:  1200px;
+    margin: auto auto;
+}
+
+#franja-encabezado{
+    width:100%;
+    height: 70px;
+    background:url(../img/encabezado-dl.png) no-repeat center top;
+}
+#datos-preliminares{
+    border-right:1px solid #dedfe2;
+}
+
+[class*='col-'] {
+    float: left;
+}
+
+.grid:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.grid{
+    width:100%;
+}
+
+.col-1-2{
+    width:50%;
+}
+
+.col-1-3{
+    width:33.33%;
+}
+
+.col-1-4{
+    width:25%;
+}
+
+/*  ------------------------------------------- BARRAS VERTICALES -------------------------------- */
+
+.barras-v { 
+    list-style:none; 
+    margin:100px 0 0 0px;
+    height:250px;
+    position:relative;
+}
+.barras-v li { 
+    margin-top:-40px; 
+    position:absolute;
+    bottom:0;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.barras-v li div.top { 
+    background-color:rgba(255,255,255,0.4) !important; 
+    position:relative;
+    width:100px; 
+    height:40px; 
+    -moz-border-radius: 100px/40px; 
+    -webkit-border-radius: 100px 40px; 
+    border-radius: 100px/40px; 
+}
+
+.barras-v li div.top img { 
+    margin-left:4px;
+    margin-top:-60px; 
+    display:inline; 
+}
+
+.barras-v li div.bottom {
+    background-color:rgba(184,203,205,0.5); 
+    margin-top:-40px; 
+    position:relative;
+    width:100px; 
+    -moz-border-radius: 100px/40px; 
+    -webkit-border-radius: 100px 40px; 
+    border-radius: 100px/40px; 
+}
+
+
+div.bottom{
+    height: 0px;
+    -webkit-transition: height 2s ease;  
+    -moz-transition: height 2s ease;  
+    -o-transition: height 2s ease;  
+    -ms-transition: height 2s ease;  
+    transition: height 2s ease;   
+}
+
+div.top, div.bottom{
+    margin:auto auto;
+}
+
+#fcn div.top { 
+    z-index:95; 
+}
+#fcn div.bottom { 
+    z-index:94; 
+    background-color:#0F2878;
+    background:-moz-linear-gradient(-90deg, #0F2878, #0A1B4B); 
+    background:-webkit-gradient(linear, 0 top, 0 bottom, from(#0F2878), to(#0A1B4B));
+}
+
+
+#une div.top { 
+    z-index:95; 
+}
+#une div.bottom { 
+    z-index:94; 
+    background-color:#268237;
+    background:-moz-linear-gradient(-90deg, #268237, #1B5A26); 
+    background:-webkit-gradient(linear, 0 top, 0 bottom, from(#268237), to(#1B5A26));
+}
+
+.detalle-barras{
+    max-width: 150px;
+    margin: 9px auto;
+}
+
+.detalle-barras .g{
+    margin-bottom: 8px;
+}
+
+.texto-porcentaje{
+    font-size: 29px;
+    font-weight: bold;
+}
+
+.porcentaje-mesas-fcn{
+    color: #0F2878;
+}
+.porcentaje-mesas-une{
+    color: #268237;
+}
+
+#logo-une{
+    width:100%;
+    height: 36px;
+    background:url(../img/logo-une.png) no-repeat center;
+    background-size: 30px 30px;
+}
+
+#logo-fcn{
+    width:100%;
+    height: 36px;
+    background:url(../img/logo-fcn.png) no-repeat center;
+    background-size: 30px 25px;
+}
+
+
+.text-votos{
+    border-top: 2px solid #dedfe2;
+    border-bottom: 2px solid #dedfe2;
+    font-weight: bold;
+    line-height: 34px;
+    display: inline-block;
+    width: 135px;
+}
+
+/*  ------------------------------------------- FIN BARRAS VERTICALES -------------------------------- */
+
+
+/*  ------------------------------------------- DETALLE DE VOTOS -------------------------------- */
+
+.grid-detalle-votos{
+    padding:0 15px 0 25px;    
+}
+
+.grid-detalle-votos ul{
+    text-align: left;
+}
+
+.hora-actualizacion{
+    font-size: 25px;
+    color:#b50200;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-family: "Carrois-Gothic";
+}
+
+.hora-actualizacion span:last-child{
+    color: #dedfe2;
+    font-size: 20px;
+}
+
+.hora-actualizacion li:last-child{
+    color: #757575;
+    font-size: 15px;
+}
+
+.hora-actualizacion img{
+    margin-top: -7px;
+}
+.descripcion-votos{
+    font-size: 17px;
+    color: #757575;
+    font-family: "Carrois-Gothic";
+    line-height: 30px;
+    margin-bottom: 34px;
+}
+
+.descripcion-votos strong{
+    color: #000;
+    float:right;
+}
+
+.total-mesas{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.total-mesas li:last-child{
+    color:#25827F;
+}
+
+.barras-h { list-style:none;  }
+
+.barras-h li div.top { 
+    background:#25827F;
+    position:relative; 
+    float:left; 
+    height:44px; 
+    -moz-border-radius: 40px/100px; 
+    -webkit-border-radius: 40px 100px; 
+    border-radius: 40px/100px;
+}
+
+.barras-h li div.bottom { 
+    position:relative; 
+    margin:5px 0; 
+    width:30px;
+    height:44px; 
+}
+
+div.top{
+    width: 20px;
+    -webkit-transition: width 2s ease;  
+    -moz-transition: width 2s ease;   
+    -o-transition: width 2s ease;   
+    -ms-transition: width 2s ease;    
+    transition: width 2s ease;    
+}
+
+.porcentaje-cilindro{
+    width: 20px;
+    -webkit-transition: width 2s ease;  
+    -moz-transition: width 2s ease;   
+    -o-transition: width 2s ease;   
+    -ms-transition: width 2s ease;    
+    transition: width 2s ease;    
+}
+
+#mesas div.top { 
+    z-index:95;
+}
+#mesas div.bottom { 
+    z-index:94;
+}
+
+#mesas{
+    background: #e3e3e3 url(../img/sombra-cilindro-h.png) no-repeat right top;
+    -moz-border-radius: 40px/100px; 
+    -webkit-border-radius: 40px 100px; 
+    border-radius: 40px/100px;
+}
+
+.porcentaje-cilindro{
+    color:#ffffff;
+    line-height: 44px;
+    text-align: center;
+    padding: 0px 5px;
+    width: 100%;
+}
+
+#cilindro-v{
+    background:#25827F url(../img/sombra-cilindro-h.png) no-repeat right top;
+    width:7%;
+}
+
+
+
+/*  ------------------------------------------- MAPA INTERACTIVO -------------------------------- */
+#mapa_departamentos {
+    fill: #aaa;
+}
+
+#mapa_departamentos path:hover {
+    fill: #181818;
+}
+
+#mapa_departamentos path{
+    stroke: white;
+    stroke-width: 1px;
+}
+
+#mapa_municipios {
+    fill: #aaa;
+    stroke: white;
+}
+
+#mapa_municipios path:hover{
+    fill: #181818;
+}
+
+#mapa-interactivo{
+    margin-top:15px;
+    position:relative;
+}
+
+#regresar-mapa, #regresar-mapa-municipio{
+    color:#4783b2;
+    cursor:pointer;
+    font-size: 17px;
+}
+
+.activo{
+    cursor:pointer;
+}
+
+.detalle-mapa-interactivo{
+    margin-top: 72px;
+    margin-bottom: 6px;
+    height: 70px;
+}
+
+
+.detalle-mapa-interactivo li:first-child{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.detalle-mapa-interactivo li:last-child{
+    font-size: 17px;
+    color: #757575;
+    font-family: "Carrois-Gothic";
+    margin-bottom: 30px;
+}
+
+
+#pie svg text.percent{
+    display:none;
+}
+/*  ------------------------------------------- FIN MAPA INTERACTIVO -------------------------------- */
+
+
+
+
+/* RESPONSIVE */
+
+
+@media screen and (max-width: 1120px) {
+    .descripcion-votos, .detalle-mapa-interactivo{
+        font-size: 16px;
+    }
+
+    .detalle-mapa-interactivo li:last-child{
+        font-size: 15px;
+    }
+
+    .text-votos, .hora-actualizacion li:last-child{
+        font-size: 14px;
+    }
+    
+    .text-votos{
+        font-size: 14px;
+        width: 125px;
+    }
+}
+
+@media screen and (max-width: 1050px){
+
+    #franja-encabezado{
+        background:url(../img/encabezado-dl-2.png) no-repeat center top;
+    }
+
+    .col-t-1-2{
+        width:100%;
+    }
+
+    .col-t-1-4{
+        width:50%;
+    }
+
+
+    .descripcion-votos, .detalle-mapa-interactivo{
+        font-size: 17px;
+    }
+
+    .detalle-mapa-interactivo li:last-child{
+        font-size: 17px;
+    }
+
+    .text-votos, .hora-actualizacion li:last-child{
+        font-size: 15px;
+    }
+
+    .grid-detalle-votos{
+        padding: 0;
+        text-align: center;
+    }
+
+    .grid-detalle-votos ul{
+        text-align: left;
+    }
+
+    .content-detalle-votos{
+        max-width: 270px; 
+        margin:auto;
+    }
+
+    .grid-mapa-interactivo{
+        padding: 0;
+        text-align: center;
+    }
+
+    .grid-mapa-interactivo{
+        text-align: left;
+    }
+
+    .content-mapa-interactivo{
+        max-width: 280px; 
+        margin:auto;
+    }
+
+    .content-contenido-barras{
+        max-width: 380px; 
+        margin:auto;
+    }
+}
+
+
+@media screen and (max-width: 620px){
+    .col-m-1-2{
+        width:100%;
+    }
+
+    .accordion{
+        margin-top:3px;
+        border-top:1.5px solid #ccc;
+        border-bottom:1.5px solid #ccc;
+        line-height: 47px;
+        text-align: left;
+
+    }
+
+
+    .accordion-up div h1{
+        background: url(../img/up.png) no-repeat 98% -2px; 
+        cursor: pointer;
+    }
+
+    .accordion-down div h1{
+        background: url(../img/down.png) no-repeat 98% -2px; 
+        cursor: pointer;
+    }
+}
