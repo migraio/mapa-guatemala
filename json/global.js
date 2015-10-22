@@ -4,12 +4,12 @@ var DATA={
         "RESULTADO_GLOBAL": [
                 {
                 "partido": "fcn",
-                        "porcentaje": 2,
+                        "porcentaje": 99,
                         "votos": "1,330,000"
                         },
                 {
                 "partido": "une",
-                        "porcentaje": 1.8,
+                        "porcentaje": 88,
                         "votos": "1,250,000"
                         }
         ],
@@ -27,19 +27,19 @@ var DATA={
         "MAPA_INTERACTIVO_DEPARTAMENTOS": [
 
         {
-        "id": "guatemala",
+                "id": "guatemala",
                 "color": "blue",
                 "mesas_computadas" : "20 / 2500",
                 "RESULTADO": [
                 {
                 "partido": "fcn",
                         "porcentaje": 80,
-                        "votos": "1200"
+                        "votos": "1620"
                 },
                 {
                 "partido": "une",
                         "porcentaje": 50,
-                        "votos": "500"
+                        "votos": "400"
                 }
                 ]
 
@@ -52,12 +52,12 @@ var DATA={
                 {
                 "partido": "fcn",
                         "porcentaje": 10,
-                        "votos": "1200"
+                        "votos": "1400"
                 },
                 {
                 "partido": "une",
                         "porcentaje": 30,
-                        "votos": "500"
+                        "votos": "1100"
                 }
                 ]
 
@@ -73,12 +73,12 @@ var DATA={
                 {
                 "partido": "fcn",
                         "porcentaje": 0,
-                        "votos": "1200"
+                        "votos": "1800"
                 },
                 {
                 "partido": "une",
                         "porcentaje": 10,
-                        "votos": "500"
+                        "votos": "900"
                 }
                 ]
 
@@ -91,12 +91,12 @@ var DATA={
                 {
                 "partido": "fcn",
                         "porcentaje": 40,
-                        "votos": "1200"
+                        "votos": "1300"
                 },
                 {
                 "partido": "une",
                         "porcentaje": 10,
-                        "votos": "500"
+                        "votos": "200"
                 }
                 ]
 

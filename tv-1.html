@@ -13,111 +13,35 @@
 
 
         <script>
-            var fecha = new Date('2015', '08', '25', '07', '00', '00');
-            var hoy = new Date();
             var random = Math.random();
-            var bucket = "http://gnwebprensalibrerootwest.s3.amazonaws.com/ecomm/Elecciones2015/2DAVUELTA/test/";
-
-            window.document.write('<link rel="stylesheet" href="' + bucket + 'css/style.css?v=' + random + '"' + '><' + '/style>');
-            window.document.write('<script type="text/javascript" src="' + bucket + 'js/contador.js?v=' + random + '"' + '><' + '/script>');
-            window.document.write('<script type="text/javascript" src="' + bucket + 'json/mapaInteractivo.js?v=' + random + '"' + '><' + '/script>');
-            window.document.write('<script type="text/javascript" src="' + bucket + 'json/preliminar.js?v=' + random + '"' + '><' + '/script>');
+            var bucket = "";
+            var bucket2 = "http://gnwebprensalibrerootwest.s3.amazonaws.com/ecomm/Elecciones2015/2DAVUELTA/test/";
+            window.document.write('<link rel="stylesheet" href="' + bucket + 'css/tv.css?v=' + random + '"' + '><' + '/style>');
+            window.document.write('<script type="text/javascript" src="' + bucket2 + 'json/mapaInteractivo.js?v=' + random + '"' + '><' + '/script>');
+            window.document.write('<script type="text/javascript" src="' + bucket2 + 'json/preliminar.js?v=' + random + '"' + '><' + '/script>');
             var dataGlobal = [];
             var mesasComputadas;
-            var tv=false;
-
+            var tv=true; 
+            
             $(document).ready(function () {
-                if (fecha < hoy) {
-                    $("#contador").remove();
-                    $("#graficas-elecciones-2dav-content").show();
                     cargaBarras();
-
-                }
-
-                /* ACCORDION */
-                if ($(window).width() < 620) {
-                    $(".contenido-mapa").attr("hidden", "hidden");
-                }
-                $(".accordion").click(function () {
-                    var clase = $(this).parent().parent().attr('class'),
-                            ultimaClase = clase.substr(clase.lastIndexOf(' ') + 1);
-
-                    if ($(window).width() < 620) {
-                        if (ultimaClase == "accordion-up") {
-                            $(this).parent().next().slideUp("fast");
-                            $(this).parent().parent().addClass("accordion-down").removeClass("accordion-up");
-                            $("html, body").animate({ scrollTop: 0 }, 100);
-                        } else {
-                            $(this).parent().next().slideDown();
-                            $(this).parent().parent().addClass("accordion-up").removeClass("accordion-down");
-                            $("html, body").animate({ scrollTop: $(document).height()-50 }, 1000);
-                        }
-                    }
-                    
-                    
-                });
-                /* FIN ACCORDION */
-
-            });
-
-            $(window).resize(function () {
-
-                if ($(window).width() > 620) {
-                    $(".contenido-barras").show();
-                    $(".contenido-mapa").show();
-                }
-
-                if ($(window).width() < 620) {
-                    $(".accordion-up").children().next().show();
-                    $(".accordion-down").children().next().hide();
-                }
 
             });
         </script>
     </head>
-    <body onload="ini()" class="wrap">
-        <!-- CONTADOR -->
-        <div id="contador" hidden>
-            <div>
-                <center>
-                    <img class="logodl" src="img/logo.png"/>
-                </center>
-            </div>
-            <div>
-                <center>
-                    <h3 class="faltanTexto titulo" data-titulo></h3>
-                    <div class="counter">
-                        <table class="tabla text-center">
-                            <tr>
-                                <td class="numCount" data-dias>--</td>
-                                <td class="numCount" data-horas>--</td>
-                                <td class="numCount" data-mins>--</td>
-                                <td class="numCount" data-segs>--</td>
-                            </tr>
-                            <tr>
-                                <td class="desCount" txt-dias>días</td>
-                                <td class="desCount" txt-horas>horas</td>
-                                <td class="desCount">mins</td>
-                                <td class="desCount">segs</td>
-                            </tr>
-                        </table>
-                    </div>
-                </center>
-            </div>
-        </div>
+    <body class="wrap">
         <!-- FIN CONTADOR -->
-        <div id="graficas-elecciones-2dav-content" hidden>
-            <div class="grid">
-                <!--<div class="center" id="franja-encabezado"></div>-->
-                <div id="datos-preliminares" class="col-1-2 col-m-1-2 accordion-up">
-                    <div class="center"><h1 class="h-beta accordion">Datos Preliminares</h1></div>
+        <div id="graficas-elecciones-2dav-content">
+            <div class="center"><h1 class="h">Datos Preliminares</h1></div>
+            <div class="grid tv-content">
+                <div id="datos-preliminares">
                     <div class="grid contenido-barras center">
                         <div class="content-contenido-barras">
                             <div id="barra-vertical" class="col-1-4 col-t-1-4 template">
                                 <ul class="barras-v">
                                     <li data-partido>
                                         <div class="top">
-                                            <img data-avatar/>
+                                            <img class="foto" data-avatar/>
                                         </div>
                                         <div class="bottom"></div>
                                         <div id="detalle-pie-barras" data-detalle-pie>
@@ -163,7 +87,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-1-2 col-m-1-2 accordion-down" id="content-mapa">
+            </div>
+            
+            <!-- MAPA INTERACTIVO -->
+            <div class="grid" hidden>
+            <div>
                     <div class="center"><h1 class="h-beta accordion">Mapa Interactivo</h1></div>
                     <div class="grid contenido-mapa">
                         <div class="col-1-2 col-t-1-2 center">

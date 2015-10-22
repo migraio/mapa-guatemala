@@ -1,10 +1,11 @@
 function cargaBarras() {
-    var partidos = DATA.DATOS_PRELIMINARES[0].RESULTADO_GLOBAL;
-    var obj = DATA.DATOS_PRELIMINARES[0];
+    var partidos = PRELIMINAR.DATOS_PRELIMINARES[0].RESULTADO_GLOBAL;
+    var obj = PRELIMINAR.DATOS_PRELIMINARES[0];
+
     var h_fcn = 0, h_une = 0;
 
-    $.each(partidos, function (key, value) {
-
+    $.map(partidos, function (value, index) {
+        //   $.each(partidos, function (key, value) {
         switch (value.partido) {
             case "fcn":
                 h_fcn = value.porcentaje;
@@ -17,17 +18,21 @@ function cargaBarras() {
         }
 
 
-        var t = document.querySelector('#barra-vertical');
-        t.content.querySelector('[data-partido]').setAttribute("id", value.partido);
-        t.content.querySelector('[data-avatar]').setAttribute("src", "img/avatar-" + value.partido + ".png");
-        t.content.querySelector('[data-detalle-pie]').setAttribute("class", "content-detalle-barras-" + value.partido);
-        var clone = document.importNode(t.content, true);
-        document.querySelector('.content-contenido-barras').appendChild(clone);
+        var TEMPLATE = document.querySelector('.content-contenido-barras');
+        var Barra = TEMPLATE.getElementsByClassName('template')[0].cloneNode(true);
+        Barra.classList.remove('template');
+        Barra.querySelector('[data-partido]').setAttribute("id", value.partido);
+        Barra.querySelector('[data-avatar]').setAttribute("class", "foto foto-tv-" + value.partido);
+        Barra.querySelector('[data-avatar]').setAttribute("src", bucket + "img/avatar-" + value.partido + ".png");
+        Barra.querySelector('[data-detalle-pie]').setAttribute("class", "content-detalle-barras-" + value.partido);
+        TEMPLATE.appendChild(Barra);
 
-        detallePie(value.partido, value.porcentaje, value.votos, "detalle-pie-barras", "content-detalle-barras-" + value.partido);
-        detallePie(value.partido, value.porcentaje, value.votos, "detalle-pie", "content-detalle-pie");
+
+        detallePie(value.partido, value.porcentaje, value.votos, "content-detalle-barras-" + value.partido, false);
+        detallePie(value.partido, value.porcentaje, value.votos, "content-detalle-pie", true);
 
     });
+
 
     pieManual(dataGlobal, "Nivel Nacional", obj.mesas_computadas.replace("de", "/"));
     mesasComputadas = obj.mesas_computadas.replace("de", "/");
@@ -39,14 +44,21 @@ function cargaBarras() {
         total = h_une;
     }
 
+    var altoCilindros = 185;
 
-    $('#fcn div.bottom').height(185 * (h_fcn / total));                   //MAX 185px | MIN 0px
-    $('#une div.bottom').height(185 * (h_une / total));                   //MAX 185px | MIN 0px
+    if (tv) {
+        altoCilindros = 300;
+    }
+
+    $('#fcn div.bottom').height(altoCilindros * (h_fcn / total));                   //MAX 185px | MIN 0px
+    $('#une div.bottom').height(altoCilindros * (h_une / total));                   //MAX 185px | MIN 0px
+
+
     $('#mesas div.top').css("width", obj.porcentaje_mesas + "%");         //MAX 255px | MIN 0px
     if (obj.porcentaje_mesas + 7 <= 100) {
         $('#cilindro-v').css("width", (obj.porcentaje_mesas + 7) + "%");  //MAX 255px | MIN 0px
     }
-    $("[data-hora]").html('<img src="img/clock2.png"/>' + obj.hora_actualizacion + " <span data-fecha> </span>");
+    $("[data-hora]").html('<img src="' + bucket + 'img/clock2.png"/>' + obj.hora_actualizacion + " <span data-fecha> </span>");
     $("[data-fecha]").html(obj.fecha_actualizacion);
     $("[data-nulos]").html(obj.votos_nulo);
     $("[data-blanco]").html(obj.votos_blanco);
@@ -54,14 +66,15 @@ function cargaBarras() {
     $("[data-votantes]").html(obj.porcentaje_votantes);
     $("[data-mesas]").html(obj.mesas_computadas);
     $("[data-porcentaje-mesas]").html(obj.porcentaje_mesas + "%");
+
 }
 
 function pintaMapa(tipo) {
     var json;
     if (tipo) {
-        json = DATA.MAPA_INTERACTIVO_DEPARTAMENTOS;
+        json = MAPA.MAPA_INTERACTIVO_DEPARTAMENTOS;
     } else {
-        json = DATA.MAPA_INTERACTIVO_MUNICIPIOS;
+        json = MAPA.MAPA_INTERACTIVO_MUNICIPIOS;
     }
     $.each(json, function (key, value) {
         $("#" + value.id).css("fill", value.color);
@@ -71,26 +84,28 @@ function pintaMapa(tipo) {
 }
 
 function datosPie(tipo, id, destino) {
-    $('.' + destino).empty();
+    $('.remover_detalle').remove();
     var json;
     var dataLocal = [];
     if (tipo) {
-        json = DATA.MAPA_INTERACTIVO_DEPARTAMENTOS;
+        json = MAPA.MAPA_INTERACTIVO_DEPARTAMENTOS;
     } else {
-        json = DATA.MAPA_INTERACTIVO_MUNICIPIOS;
+        json = MAPA.MAPA_INTERACTIVO_MUNICIPIOS;
     }
 
-    $.each(json, function (key, value) {
+    //$.each(json, function (key, value) {
+    $.map(json, function (value, index) {
         if (value.id == id) {
-            $.each(json[key].RESULTADO, function (key, value) {
 
-                detallePie(value.partido, value.porcentaje, value.votos, "detalle-pie", destino);
+            //$.each(json[key].RESULTADO, function (key, value) {
+            $.map(json[index].RESULTADO, function (value, index) {
+                detallePie(value.partido, value.porcentaje, value.votos, destino, true);
                 switch (value.partido) {
                     case "fcn":
-                        dataLocal.push({partido: value.partido, porcentaje: value.porcentaje});
+                        dataLocal.push({partido: value.partido, porcentaje: value.porcentaje, color: value.color});
                         break;
                     case "une":
-                        dataLocal.push({partido: value.partido, porcentaje: value.porcentaje});
+                        dataLocal.push({partido: value.partido, porcentaje: value.porcentaje, color: value.color});
                         break;
                 }
             });
@@ -99,22 +114,27 @@ function datosPie(tipo, id, destino) {
     });
 }
 
+
 function datosPieManual(data, id, mesas, destino) {
-    $('.' + destino).empty();
+    $('.remover_detalle').remove();
     $.each(data, function (key, value) {
-        detallePie(value.partido, value.porcentaje, value.votos, "detalle-pie", destino);
+        detallePie(value.partido, value.porcentaje, value.votos, destino, true);
     });
     pieManual(data, id, mesas);
 }
 
-function detallePie(partido, porcentaje, votos, template, destino) {
-    var pie = document.querySelector('#' + template);
-    pie.content.querySelector('[data-logo]').setAttribute("id", "logo-" + partido);
-    pie.content.querySelector('[data-porcentaje]').setAttribute("class", "texto-porcentaje center  porcentaje-mesas-" + partido);
-    pie.content.querySelector('[data-porcentaje]').textContent = porcentaje + "%";
-    pie.content.querySelector('[data-votos]').textContent = votos + " votos";
-    var clone = document.importNode(pie.content, true);
-    document.querySelector('.' + destino).appendChild(clone);
+function detallePie(partido, porcentaje, votos, destino, eliminar) {
+    var TEMPLATE = document.querySelector('.' + destino);
+    var DetallePie = TEMPLATE.getElementsByClassName('template')[0].cloneNode(true);
+    DetallePie.classList.remove('template');
+    if (eliminar) {
+        DetallePie.classList.add('remover_detalle');
+    }
+    DetallePie.querySelector('[data-logo]').setAttribute("id", "logo-" + partido);
+    DetallePie.querySelector('[data-porcentaje]').setAttribute("class", "texto-porcentaje center  porcentaje-mesas-" + partido);
+    DetallePie.querySelector('[data-porcentaje]').textContent = porcentaje + "%";
+    DetallePie.querySelector('[data-votos]').textContent = votos + " votos";
+    TEMPLATE.appendChild(DetallePie);
 }
 
 
@@ -122,7 +142,8 @@ function omitirAcentos(text) {
     var acentos = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç";
     var original = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc";
     for (var i = 0; i < acentos.length; i++) {
-        text = text.replace(acentos.charAt(i), original.charAt(i));
+        var regex = new RegExp(acentos.charAt(i), "g");
+        text = text.replace(regex, original.charAt(i));
     }
     return text;
 }
@@ -148,10 +169,11 @@ function zoomOut() {
 
 function zoomOutMuni(depto) {
     $("#regresar-mapa").fadeIn("fast");
+    $("#regresar-mapa-municipio").html('');
     $("#regresar-mapa-municipio").hide();
     $("#titulo-pie em").html('');
     datosPie(true, depto, "content-detalle-pie");
-    
+
 }
 
 
@@ -234,18 +256,30 @@ function clickedMuni(d) {
 
         datosPie(false, select, "content-detalle-pie");
         $("#regresar-mapa").hide();
-        $("#regresar-mapa-municipio").replaceWith('<div id="regresar-mapa-municipio" class="center" onClick="zoomOutMuni(&quot;'+omitirAcentos(depto.replace(/ /g, '').toLowerCase())+'&quot;);">Regresar a '+depto+'</div>');
-        
+        $("#regresar-mapa-municipio").replaceWith('<div id="regresar-mapa-municipio" class="center" onClick="zoomOutMuni(&quot;' + omitirAcentos(depto.replace(/ /g, '').toLowerCase()) + '&quot;);">Regresar a ' + depto + '</div>');
+
     }
 }
 
 
 /* MAPA */
 
-
 var width = 300,
         height = 305,
         centered;
+var scale = 4000,
+        centerx = -85.5,
+        centery = 14.444;
+
+if (tv) {
+    width = 800,
+            height = 710,
+            centered;
+    scale = 9100,
+            centerx = -89.75,
+            centery = 16.38;
+}
+
 
 
 var svg = d3.select("#mapa-interactivo").append("svg")
@@ -253,15 +287,15 @@ var svg = d3.select("#mapa-interactivo").append("svg")
         .attr("height", height);
 
 var projection = d3.geo.mercator()
-        .center([-85.5, 14.444])
-        .scale(4000);
+        .center([centerx, centery])
+        .scale(scale);
 
 var path = d3.geo.path()
         .projection(projection);
 
 var g = svg.append("g");
 
-d3.json("json/deptos.json", function (error, guate) {
+d3.json(bucket + "json/deptos.json", function (error, guate) {
     if (error)
         return console.error(error);
 
@@ -285,7 +319,7 @@ d3.json("json/deptos.json", function (error, guate) {
 });
 
 
-d3.json("json/muni.json", function (error, guate) {
+d3.json(bucket + "json/muni.json", function (error, guate) {
     if (error)
         return console.error(error);
     var muni = topojson.feature(guate, guate.objects.municipios).features;
@@ -308,42 +342,66 @@ d3.json("json/muni.json", function (error, guate) {
 });
 
 
-/* FIN MAPA */  
+/* FIN MAPA */
 
 
 /* PIE */
+
+var piex = 100, piey = 45, pierx = 85, piery = 43, piehr = 15, pieir = 0, piew = 200, pieh = 105;
+
+if (tv) {
+    piew = 400;
+    pieh = 210;
+    piex = 200;
+    piey = 90;
+    pierx = 170;
+    piery = 86;
+    piehr = 30;
+    pieir = 0;
+
+}
 var pieDataIni = [
-    {partido: "fcn", porcentaje: 100},
-    {partido: "une", porcentaje: 100}
+    {partido: "fcn", porcentaje: 100, color: "#0F2878"},
+    {partido: "une", porcentaje: 100, color: "#268237"}
 ];
 
-var svg = d3.select("#pie").append("svg").attr("width", 200).attr("height", 105);
+var svg = d3.select("#pie").append("svg").attr("width", piew).attr("height", pieh);
 
 svg.append("g").attr("id", "seccion-pie");
-Donut3D.draw("seccion-pie", data(pieDataIni), 100, 45, 85, 43, 15, 0);
+Donut3D.draw("seccion-pie", data(pieDataIni), piex, piey, pierx, piery, piehr, pieir);
 
 function pieManual(arr, titulo, mesas) {
-    Donut3D.transition("seccion-pie", data(arr), 85, 43, 15, 0);
+    Donut3D.transition("seccion-pie", data(arr), pierx, piery, piehr, pieir);
     $("[data-titulo-pie]").html(titulo);
     $("[data-mesas-pie]").html(mesas);
 }
 
 function pie(arr, titulo, mesas) {
-    Donut3D.transition("seccion-pie", data(arr), 85, 43, 15, 0);
+    Donut3D.transition("seccion-pie", data(arr), pierx, piery, piehr, pieir);
     $("[data-mesas-pie]").html(mesas);
 }
 
 function data(arreglo) {
-    return arreglo.map(function (d) {
+    var ordenadoPorNombrePartido = arreglo.slice(0);
+    ordenadoPorNombrePartido.sort(function (a, b) {
+        var x = a.partido.toLowerCase();
+        var y = b.partido.toLowerCase();
+        return x < y ? -1 : x > y ? 1 : 0;
+    });
+
+    return ordenadoPorNombrePartido.map(function (d) {
         if (d.partido == "fcn") {
             return {value: d.porcentaje, color: "#0F2878"};
-        } else {
+        }
+        if (d.partido == "une") {
             return {value: d.porcentaje, color: "#268237"};
         }
     });
 }
 
 /* CLASE PARA AGREGAR/QUITAR CLASES A LOS SVG*/
+
+
 $.fn.addClassSVG = function (className) {
     $(this).attr('class', function (index, existingClassNames) {
         return existingClassNames + ' ' + className;
@@ -358,3 +416,4 @@ $.fn.removeClassSVG = function (className) {
     });
     return this;
 };
+ 

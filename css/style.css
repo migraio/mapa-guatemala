@@ -1,3 +1,143 @@
+.template {
+    display: none;
+}
+
+html *, path {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/* CONTADOR */
+
+.titulo {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.tabla td,
+.tabla th {
+    padding: 0;
+}
+
+.tabla {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    background-color: transparent;border-spacing: 0;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+}
+.tabla {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.tabla td{
+    border: 0;
+}
+
+.tabla > thead > tr > th,
+.tabla > tbody > tr > th,
+.tabla > tfoot > tr > th,
+.tabla > thead > tr > td,
+.tabla > tbody > tr > td,
+.tabla > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+.tabla > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+.tabla > caption + thead > tr:first-child > th,
+.tabla > colgroup + thead > tr:first-child > th,
+.tabla > thead:first-child > tr:first-child > th,
+.tabla > caption + thead > tr:first-child > td,
+.tabla > colgroup + thead > tr:first-child > td,
+.tabla > thead:first-child > tr:first-child > td {
+    border-top: 0;
+}
+.tabla > tbody + tbody {
+    border-top: 2px solid #ddd;
+}
+.tabla .tabla{
+    background-color: #fff;
+}
+
+
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+.text-center {
+    text-align: center;
+}
+.text-justify {
+    text-align: justify;
+}
+
+
+h1,h2,h3,h4,h5,h6{
+    padding: 0;
+    margin: 0;
+}
+
+
+hr{
+    border: none;
+}
+#content{
+    height: 100%;
+    width: auto;
+}
+
+.logodl{
+    margin-top: 30px;
+    width: 50%;
+} 
+
+
+.faltanTexto{
+    margin-top: 0.1em;
+    margin-bottom: 0.3em;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.numDias{
+    font-size: 2em;
+    color:#00579B;
+}
+
+.desCount{
+    font-size: 0.9em;
+    color:#B5B5B5;
+}
+
+.counter{
+    text-align:center;
+    width: 60%;
+}
+
+.numCount{
+    font-weight: bold;
+    font-size: 23px;
+    color:#00579B;
+}
+
+
+
+
+/* FIN CONTADOR */
 
 .hidden{
     display:none;
@@ -129,7 +269,7 @@ div.top, div.bottom{
 }
 
 .detalle-barras{
-    max-width: 150px;
+    max-width: 140px;
     margin: 9px auto;
 }
 
@@ -138,8 +278,9 @@ div.top, div.bottom{
 }
 
 .texto-porcentaje{
-    font-size: 29px;
+    font-size: 25px;
     font-weight: bold;
+    padding-top: 4px;
 }
 
 .porcentaje-mesas-fcn{
@@ -147,6 +288,11 @@ div.top, div.bottom{
 }
 .porcentaje-mesas-une{
     color: #268237;
+}
+
+.caja-logo{
+    width: 35px;
+    float:left;
 }
 
 #logo-une{
@@ -301,7 +447,7 @@ div.top{
 }
 
 #mapa_departamentos path:hover {
-    fill: #181818;
+    fill: #181818 !important;
 }
 
 #mapa_departamentos path{
@@ -315,7 +461,7 @@ div.top{
 }
 
 #mapa_municipios path:hover{
-    fill: #181818;
+    fill: #181818 !important;
 }
 
 #mapa-interactivo{
@@ -332,6 +478,7 @@ div.top{
 .activo{
     cursor:pointer;
 }
+
 
 .detalle-mapa-interactivo{
     margin-top: 72px;
@@ -365,6 +512,11 @@ div.top{
 
 
 @media screen and (max-width: 1120px) {
+
+    .texto-porcentaje{
+        font-size: 24px;
+    }
+
     .descripcion-votos, .detalle-mapa-interactivo{
         font-size: 16px;
     }
@@ -376,7 +528,7 @@ div.top{
     .text-votos, .hora-actualizacion li:last-child{
         font-size: 14px;
     }
-    
+
     .text-votos{
         font-size: 14px;
         width: 125px;
@@ -397,6 +549,13 @@ div.top{
         width:50%;
     }
 
+    .texto-porcentaje{
+        font-size: 22px;
+    }
+
+    .detalle-barras {
+        width: 130px !important;
+    }
 
     .descripcion-votos, .detalle-mapa-interactivo{
         font-size: 17px;
@@ -469,4 +628,10 @@ div.top{
         background: url(../img/down.png) no-repeat 98% -2px; 
         cursor: pointer;
     }
+
+    .detalle-mapa-interactivo {
+        margin-top: 5px;
+    }
+
+
 }
